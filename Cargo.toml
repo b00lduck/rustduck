@@ -2,7 +2,7 @@
 name = "b00lduck-webgl"
 version = "1.0.0"
 authors = ["b00lduck"]
-edition = "2019"
+edition = "2018"
 
 [lib]
 crate-type = ["cdylib"]
