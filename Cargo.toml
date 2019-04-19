@@ -1,5 +1,5 @@
 [package]
-name = "b00lduck-webgl"
+name = "webgl"
 version = "1.0.0"
 authors = ["b00lduck"]
 edition = "2018"
