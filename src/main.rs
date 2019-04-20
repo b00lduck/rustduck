@@ -5,6 +5,7 @@ use na::{Vector3, UnitQuaternion, Translation3};
 use kiss3d::window::Window;
 use kiss3d::light::Light;
 use kiss3d::scene::SceneNode;
+use kiss3d::event::{Action, WindowEvent, Key};
 
 fn main() {
     let mut window = Window::new("Kiss3d: wireframe");
@@ -21,12 +22,30 @@ fn main() {
     window.set_light(Light::StickToCamera);
 
     let rot = UnitQuaternion::from_axis_angle(&Vector3::y_axis(), 0.014);
+    let rotx = UnitQuaternion::from_axis_angle(&Vector3::x_axis(), 0.014);
 
     while window.render() { 
         for mut x in &mut cs {
             x.prepend_to_local_rotation(&rot);
         }
+
+        for mut event in window.events().iter() {
+            match event.value {
+                WindowEvent::Key(button, Action::Press, _) => {
+                    match button {
+                        //Key::W => window.caprepend_to_local_rotation(&rotx),
+                        Key::Z => for mut x in &mut cs {
+                             x.prepend_to_local_rotation(&rotx);
+                        }
+                        _ => {},
+                    }
+                    event.inhibited = true; // override the default keyboard handler
+                }
+                _ => {}
+            }
+        }
     }
+
 }
 
 fn cube(window: &mut Window, n: i32, x: i32) -> SceneNode {
