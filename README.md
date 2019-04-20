@@ -1,17 +1,12 @@
-# Rust-WASM-WebGL
+# Rust-Kiss3D test toy
 
 ## Install rust
 ```
 $ curl https://sh.rustup.rs -sSf | sh
 ```
 
-## Install wasm-pack
+## Run
 ```
-$ cargo install wasm-pack
-```
-
-## Run in local browser
-```
-$ npm run serve
+$ cargo run
 ```
 
