@@ -24,7 +24,7 @@ fn add_cube(scene_node: &mut SceneNode, x: i16, y: i16, z: i16) -> SceneNode {
     let mut c = scene_node.add_cube(1.0, 1.0, 4.0);
     let t1 = Translation3::new((x) as f32, (y) as f32, (z) as f32);
 
-    c.set_local_translation(t1);
+    c.set_local_translation(t1);    
 
     return c
 }

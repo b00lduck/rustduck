@@ -1,12 +1,11 @@
 extern crate kiss3d;
 extern crate nalgebra as na;
 
-use kiss3d::post_processing::SobelEdgeHighlight;
 //use na::{Vector3, UnitQuaternion, Point3};
 use kiss3d::window::Window;
 use kiss3d::light::Light;
 //use kiss3d::camera::FirstPerson;
-use std::time::{SystemTime, UNIX_EPOCH};
+use std::time::{SystemTime};
 
 mod cubeblock;
 mod target;
@@ -14,6 +13,7 @@ mod eventhandler;
 
 mod playfield;
 mod map;
+mod postproc;
 
 fn main() {
 
@@ -23,7 +23,7 @@ fn main() {
     
     let mut maingroup = window.add_group();
 
-    let mut sobel = SobelEdgeHighlight::new(4.0);
+    let mut sobel = postproc::sobel::MySobel::new(10.0);
 
     //let mut node = target::add_nodeGroup(&mut maingroup);
     let mut node = target::Node::init_node(&mut maingroup, 0,0,0,1);
@@ -42,7 +42,6 @@ fn main() {
         match now.elapsed() {
             Ok(elapsed) => {                
                 let time_gone = elapsed.as_micros();
-                println!("{}", time_gone);
                 now = SystemTime::now();
                 // move(time_gone)
                 window.render_with_effect(&mut sobel);
