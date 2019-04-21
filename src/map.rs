@@ -31,7 +31,7 @@ impl Map {
         let posy = 1;
         let direction = Direction::South;        
 
-        self.step(posx, posy, direction);
+        self.step(posx, posy, &direction);
 
         self.print();
     }
@@ -73,50 +73,42 @@ impl Map {
         return false;
     }
 
-    fn step(&mut self, posx: i16, posy: i16, direction: Direction) {
-        let s = &direction;
-        println!("{:?} {:?} {:?}", s, posx, posy);
+    fn step(&mut self, posx: i16, posy: i16, direction: &Direction) {
+        println!("{:?} {:?} {:?}", direction, posx, posy);
 
         if posy < 0 || posy >= 64 || posx < 0 || posx >= 64 {
             return
         }
        
-        let mut rng = rand::thread_rng();
-        let n = rng.gen_range(0, 15);
+        let new_direction = change_direction(posx, posy, direction);
 
-        let new_dir = change_direction(n, &direction);
-
-        if new_dir != &direction {
-            println!("{:?} is new dir", new_dir);
-        }
-
-        let s1 = new_dir;
-
-        if self.check_surroundings(posx, posy, &direction) {
+        if self.check_surroundings(posx, posy, new_direction) {
             println!("Surroundings check negative");
             return
         }
 
         self.state[posy as usize][posx as usize] = 1;
 
-
+        /*
+        let mut rng = rand::thread_rng();
         let q = rng.gen_range(0, 40);
+
         match q {
-            3 => {
+            1 => {
                 println!("4-Split");
                 self.step(posx, posy - 1, Direction::North);
                 self.step(posx, posy + 1, Direction::South);
                 self.step(posx - 1, posy, Direction::West);
                 self.step(posx + 1, posy, Direction::East);                
             },
-            4 => {
+            2 => {
                 if direction != Direction::North && direction != Direction::South {
                     println!("2-Split NS");
                     self.step(posx, posy - 1, Direction::North);
                     self.step(posx, posy + 1, Direction::South);
                 }
             },
-            5 => {
+            3 => {
                 if direction != Direction::West && direction != Direction::East {
                     println!("2-Split WE");
                     self.step(posx - 1, posy, Direction::West);
@@ -125,12 +117,13 @@ impl Map {
             },
             _ => {}
         } 
+        */
 
-        match new_dir {
-            Direction::North => self.step(posx, posy - 1, Direction::North),
-            Direction::South => self.step(posx, posy + 1, Direction::South),
-            Direction::West => self.step(posx - 1, posy, Direction::West),
-            Direction::East => self.step(posx + 1, posy, Direction::East),
+        match direction {
+            Direction::North => self.step(posx, posy - 1, direction),
+            Direction::South => self.step(posx, posy + 1, direction),
+            Direction::West => self.step(posx - 1, posy, direction),
+            Direction::East => self.step(posx + 1, posy, direction),
         }
 
     }
@@ -150,24 +143,33 @@ impl Map {
 
     }
 
+    
+
 }
 
-fn change_direction(x: u32, direction: &Direction) -> &Direction {
-    match x {
+
+fn change_direction(posx: i16, posy: i16, direction: &Direction) -> &Direction {
+    let mut rng = rand::thread_rng();
+    let n = rng.gen_range(0, 15);
+
+    match n {
         1 => match direction {
-            Direction::North => return &Direction::West,
-            Direction::South => return &Direction::East,
-            Direction::West => return &Direction::North,
-            Direction::East => return &Direction::South
+            Direction::North => &Direction::West,
+            Direction::South => &Direction::East,
+            Direction::West => &Direction::North,
+            Direction::East => &Direction::South
         }
         2 => match direction {
-            Direction::North => return &Direction::East,
-            Direction::South => return &Direction::West,
-            Direction::West => return &Direction::South,
-            Direction::East => return &Direction::North
+            Direction::North => &Direction::East,
+            Direction::South => &Direction::West,
+            Direction::West => &Direction::South,
+            Direction::East => &Direction::North
         }
-        _ => {
-            return direction
+        _ => match direction {
+            Direction::North => &Direction::North,
+            Direction::South => &Direction::South,
+            Direction::West => &Direction::West,
+            Direction::East => &Direction::East
         }
     }
     
