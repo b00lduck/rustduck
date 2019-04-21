@@ -10,7 +10,6 @@ mod cubeblock;
 mod target;
 mod eventhandler;
 
-mod keyevents;
 mod playfield;
 mod map;
 
@@ -31,7 +30,6 @@ fn main() {
 
     while window.render() { 
         eventhandler::move_event(&mut window, &mut node);
-        keyevents::handle(&mut window, &mut maingroup);
     }
   
 }
