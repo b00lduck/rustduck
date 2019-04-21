@@ -26,7 +26,7 @@ fn main() {
     let mut sobel = postproc::sobel::MySobel::new(10.0);
 
     //let mut node = target::add_nodeGroup(&mut maingroup);
-    let mut node = target::Node::init_node(&mut maingroup, 0,0,0,1);
+    let mut node = target::Node::init_node(&mut maingroup, 0,0,-5,1.0);
 
     playfield::add_playfield(&mut maingroup, &map);
 
@@ -43,9 +43,10 @@ fn main() {
             Ok(elapsed) => {                
                 let time_gone = elapsed.as_micros();
                 now = SystemTime::now();
-                // move(time_gone)
+                move_step(time_gone, &mut node);
                 window.render_with_effect(&mut sobel);
                 frames_rendered = frames_rendered + 1;               
+                eventhandler::move_event(&mut window, &mut node);
             }
             Err(e) => {
                 println!("Error: {:?}", e);
@@ -53,8 +54,17 @@ fn main() {
         }
 
     }
+
+
  
 
   
 }
 
+fn move_step(time_gone:u128,  node:&mut target::Node) {
+    let step = (time_gone as f32 /1000000.0);
+        //println!("Time gone: {} | step: {}", time_gone, step);
+        node.pulse(step*1.0);
+        node.move_one_step();
+
+}

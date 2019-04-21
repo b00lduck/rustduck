@@ -15,17 +15,29 @@ pub fn move_event(window :&mut Window, scene_node: &mut Node) {
             match event.value {
                 WindowEvent::Key(button, Action::Press, _) => {
                     match button {
-                        Key::W => scene_node.move_z(0.1),
-                        Key::S => scene_node.move_z(-0.1),
-                        Key::A => scene_node.move_x(0.1),
-                        Key::D => scene_node.move_x(-0.1),
-                        Key::Q => scene_node.move_y(0.1),
-                        Key::E => scene_node.move_y(-0.1),
+                        Key::W => {
+                            scene_node.inc_speed(0.01);
+                        }
+                        Key::S => {
+                            scene_node.inc_speed(-0.01);
+                        }
+                        Key::A => {
+                            scene_node.inc_z_angle(0.2);
+                            //event.inhibited = true;
+                        }
+                        Key::D => {
+                            scene_node.inc_z_angle(-0.2);
+                            //event.inhibited = true;
+                        }
+                        Key::Q => {
+                            scene_node.move_y(0.1)}
+                        Key::E => {
+                            scene_node.move_y(-0.1)}
 //                        Key::A => scene_node.rot_y(0.1),
 //                        Key::D => scene_node.rot_y(-0.1),
-                        _ => {},
+                        _ => {println!("Button {:?}", button);}
                     }
-                    event.inhibited = true;
+                    //event.inhibited = true;
 
                      // override the default keyboard handler
                 }
