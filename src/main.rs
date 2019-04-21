@@ -12,24 +12,22 @@ mod map;
 
 fn main() {
 
-    map::generator::Map::new();
-
-    /*
+    let map = map::generator::Map::new();
+   
     let mut window = Window::new("p1mm3lTr0n");
     
     let mut maingroup = window.add_group();
 
-    let mut cubes = cubeblock::add_cubeblock(&mut maingroup, 3);
-    playfield::add_playfield(&mut maingroup);
+//    let mut cubes = cubeblock::add_cubeblock(&mut maingroup, 3);
+    playfield::add_playfield(&mut maingroup, &map);
 
     window.set_light(Light::StickToCamera);
     let rotx = UnitQuaternion::from_axis_angle(&Vector3::x_axis(), 0.014);
 
     while window.render() { 
         keyevents::handle(&mut window, &mut maingroup);
-        cubes.prepend_to_local_rotation(&rotx);
+//        cubes.prepend_to_local_rotation(&rotx);
     }
-    */
-
+  
 }
 

@@ -3,13 +3,14 @@ extern crate rand;
 use map::generator::rand::Rng;
 
 use map::direction::Direction;
+use map::direction::Vector2;
 
-const SIZEX: usize = 64;
+const SIZEX: usize = 32;
 const SIZEY: usize = 32;
 
-
 pub struct Map {
-    state: [[i8; SIZEX]; SIZEY]
+    pub state: [[i8; SIZEX]; SIZEY],
+    pub size: Vector2
 }
 
 
@@ -17,7 +18,8 @@ impl Map {
 
     pub fn new() -> Map {
         let mut ret = Map {
-            state: [[0;SIZEX]; SIZEY]
+            state: [[0;SIZEX]; SIZEY],
+            size: Vector2 {x: SIZEX as i16, y: SIZEY as i16}
         };  
         // Start the recursion
         ret.step((SIZEX / 2) as i16, 0, &Direction::South);

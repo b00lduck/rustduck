@@ -3,25 +3,23 @@
 use kiss3d::scene::SceneNode;
 use na::Translation3;
 
-pub fn add_playfield(scene_node: &mut SceneNode) -> SceneNode {
+use map::generator::Map;
 
-    let size = 32;
-
-    let size2 = size / 2;
+pub fn add_playfield(scene_node: &mut SceneNode, map: &Map) -> SceneNode {
 
     let mut g1 = scene_node.add_group();
-    for x in 0..64 {
-        for y in 0..64 {                      
-            //if rand::random() {
-                add_cube(&mut g1, x - size2, y - size2, -4);
-            //}                
+    for x in 0..map.size.x {
+        for y in 0..map.size.y {                      
+            if map.state[y as usize][x as usize] == 0 {
+                add_cube(&mut g1, x - map.size.x/2, y - map.size.y/2, -4);
+            }
         }
     }    
 
     return g1
 }
 
-fn add_cube(scene_node: &mut SceneNode, x: i32, y: i32, z: i32) -> SceneNode {
+fn add_cube(scene_node: &mut SceneNode, x: i16, y: i16, z: i16) -> SceneNode {
 
     let mut c = scene_node.add_cube(1.0, 1.0, 1.0);
     let t1 = Translation3::new((x) as f32, (y) as f32, (z) as f32);
