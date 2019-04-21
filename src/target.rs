@@ -26,10 +26,21 @@ pub struct Node {
 impl Node {
 
     pub fn init_node(group: &mut SceneNode, x:i32, y:i32, z:i32, size:f32) -> Node{
-        let mut node = Node{ x:(x) as f32,y: (y) as f32,z:(z) as f32,z_angle: 0.0, size: size, speed: 0.0,scenenode: group.add_sphere(0.1f32), pulse: 0.1 };
-        node.scenenode.set_color(1.0,0.0,0.0);
-        node.set_translation();
-        return node
+        let mut scene_node = group.add_sphere(0.1f32);
+
+        scene_node.set_texture_from_memory(include_bytes!("./data/stone.png"), "stone");
+
+        let mut node = Node{ 
+            x:(x) as f32,
+            y: (y) as f32,
+            z:(z) as f32,
+            z_angle: 0.0,
+            size: size,
+            speed: 0.0,
+            scenenode: scene_node,
+            pulse: 0.1};
+            node.set_translation();
+            return node
     }
 
     pub fn move_one_step(&mut self) {
