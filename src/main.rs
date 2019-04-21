@@ -12,7 +12,7 @@ mod map;
 
 fn main() {
 
-    map::Map::new();
+    map::generator::Map::new();
 
     /*
     let mut window = Window::new("p1mm3lTr0n");
