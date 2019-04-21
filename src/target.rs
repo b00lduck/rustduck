@@ -23,7 +23,16 @@ pub struct Node {
 impl Node {
 
     pub fn init_node(group: &mut SceneNode, x:i32, y:i32, z:i32, r:i32) -> Node{
-        return Node{ x:(x) as f32,y: (y) as f32,z:(z) as f32,r:(r) as f32,scenenode: group.add_sphere(0.1f32)};
+        let mut node = group.add_sphere(0.1f32);
+
+        node.set_texture_from_memory(include_bytes!("./data/stone.png"), "stone");
+
+        return Node{ 
+            x:(x) as f32,
+            y: (y) as f32,
+            z:(z) as f32,
+            r:(r) as f32,
+            scenenode: node};
     }
 
     pub fn move_x(&mut self, new_x:f32) {
