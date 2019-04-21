@@ -22,13 +22,21 @@ fn main() {
     let mut maingroup = window.add_group();
 
     //let mut node = target::add_nodeGroup(&mut maingroup);
-    let mut node = target::Node::init_node(&mut maingroup, 0,0,0,1);
+    let mut node = target::Node::init_node(&mut maingroup, 0,0,-5,1);
+    node.set_size(1.0);
 
     playfield::add_playfield(&mut maingroup, &map);
 
     window.set_light(Light::StickToCamera);
 
+    let mut counter = 0.001_f32;
+
     while window.render() { 
+        let sin_value = counter.sin();
+        //println!("sin: {} | counter: {}", sin_value ,counter );
+        node.set_size(sin_value.sin()*1.1);
+        counter = counter + 0.2;
+
         eventhandler::move_event(&mut window, &mut node);
     }
   
