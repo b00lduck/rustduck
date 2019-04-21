@@ -1,8 +1,7 @@
-extern crate rand;
+//extern crate rand;
 
 use kiss3d::scene::SceneNode;
 use na::Translation3;
-
 
 pub fn add_playfield(scene_node: &mut SceneNode) -> SceneNode {
 
@@ -13,9 +12,9 @@ pub fn add_playfield(scene_node: &mut SceneNode) -> SceneNode {
     let mut g1 = scene_node.add_group();
     for x in 0..64 {
         for y in 0..64 {                      
-                if rand::random() {
-                    add_cube(&mut g1, x - size2, y - size2, -4);
-                }                
+            //if rand::random() {
+                add_cube(&mut g1, x - size2, y - size2, -4);
+            //}                
         }
     }    
 

@@ -8,8 +8,12 @@ use kiss3d::light::Light;
 mod cubeblock;
 mod keyevents;
 mod playfield;
+mod map;
 
 fn main() {
+
+    map::Map::new();
+
     let mut window = Window::new("p1mm3lTr0n");
     
     let mut maingroup = window.add_group();
