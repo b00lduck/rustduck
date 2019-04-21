@@ -209,7 +209,7 @@ static FRAGMENT_SHADER: &'static str = "#version 100
 
         vec4 color = texture2D(fbo_texture, texcoord);
 
-        vec3 edgecolor = vec3(1.0,0.2,0.9);
+        vec3 edgecolor = vec3(1.0,0.9,0.2);
 
         gl_FragColor = vec4((1.0-edge) * edgecolor + color.xyz, 1.0);
     }";
