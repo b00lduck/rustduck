@@ -2,8 +2,11 @@ extern crate rand;
 
 use map::rand::Rng;
 
+const sizex: usize = 64;
+const sizey: usize = 16;
+
 pub struct Map {
-    state: [[i8; 64]; 64]
+    state: [[i8; sizex]; sizey]
 }
 
 #[derive(PartialEq,Debug)]
@@ -18,65 +21,19 @@ impl Map {
 
     pub fn new() -> Map {
         let mut ret = Map {
-            state: [[0;64]; 64]
+            state: [[0;sizex]; sizey]
         };  
-        ret.create();
+        // Start the recursion
+        ret.step((sizex / 2) as i16, 1, &Direction::South);
+        ret.print();
         return ret
     }
 
-    pub fn create(&mut self) {
-        println!("Now generating map");
-
-        let posx = 32;
-        let posy = 1;
-        let direction = Direction::South;        
-
-        self.step(posx, posy, &direction);
-
-        self.print();
-    }
-
-    fn check_surroundings(&mut self, posx: i16, posy: i16, oldDirection: &Direction) -> bool {
-
-        if posy < 1 || posx < 1 || posy > 62 || posx > 62 {
-            return true;
-        }
-
-        let nx = posx as usize;
-        let ny = posy as usize;
-
-        if oldDirection != &Direction::South {
-            if self.state[ny-1][nx] > 0 {
-                println!("N blocked");
-                return true
-            }
-        }
-        if oldDirection != &Direction::North {
-            if self.state[ny+1][nx] > 0 {
-                println!("S blocked");
-                return true
-            }           
-        }
-        if oldDirection != &Direction::East {
-            if self.state[ny][nx-1] > 0 {
-                println!("W blocked");                
-                return true
-            }            
-        }
-        if oldDirection != &Direction::West {
-            if self.state[ny][nx+1] > 0 {
-                println!("E blocked");
-                return true
-            }
-        }
-
-        return false;
-    }
 
     fn step(&mut self, posx: i16, posy: i16, direction: &Direction) {
         println!("{:?} {:?} {:?}", direction, posx, posy);
 
-        if posy < 0 || posy >= 64 || posx < 0 || posx >= 64 {
+        if posy < 0 || posy >= sizey as i16 || posx < 0 || posx >= sizex as i16 {
             return
         }
        
@@ -126,20 +83,58 @@ impl Map {
             Direction::East => self.step(posx + 1, posy, direction),
         }
 
+    }    
+
+    fn check_surroundings(&mut self, posx: i16, posy: i16, old_direction: &Direction) -> bool {
+
+        if posy < 1 || posx < 1 || posy > (sizey-2) as i16 || posx > (sizex - 2) as i16 {
+            return true;
+        }
+
+        let nx = posx as usize;
+        let ny = posy as usize;
+
+        if old_direction != &Direction::South {
+            if self.state[ny-1][nx] > 0 {
+                println!("N blocked");
+                return true
+            }
+        }
+        if old_direction != &Direction::North {
+            if self.state[ny+1][nx] > 0 {
+                println!("S blocked");
+                return true
+            }           
+        }
+        if old_direction != &Direction::East {
+            if self.state[ny][nx-1] > 0 {
+                println!("W blocked");                
+                return true
+            }            
+        }
+        if old_direction != &Direction::West {
+            if self.state[ny][nx+1] > 0 {
+                println!("E blocked");
+                return true
+            }
+        }
+
+        return false;
     }
+
 
     fn print(&self) {
 
-    for a in self.state.iter() {
-        for b in a.iter() {
-            if *b == 0 {
-                print!(".");
-            } else {
-                print!("O");
+        for a in self.state.iter() {
+            for b in a.iter() {
+                if *b == 0 {
+                    print!(".");
+                } else {
+                    print!("O");
+                }
             }
+            print!("\n");
         }
-        print!("\n");
-    }
 
     }
 

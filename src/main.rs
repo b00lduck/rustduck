@@ -14,6 +14,7 @@ fn main() {
 
     map::Map::new();
 
+    /*
     let mut window = Window::new("p1mm3lTr0n");
     
     let mut maingroup = window.add_group();
@@ -28,6 +29,7 @@ fn main() {
         keyevents::handle(&mut window, &mut maingroup);
         cubes.prepend_to_local_rotation(&rotx);
     }
+    */
 
 }
 
