@@ -29,7 +29,7 @@ impl Map {
 
 
     fn step(&mut self, posx: i16, posy: i16, direction: &Direction) {
-        println!("{:?} {:?} {:?}", direction, posx, posy);
+        //println!("{:?} {:?} {:?}", direction, posx, posy);
 
         if posy < 0 || posy+1 >= SIZEY as i16 || posx < 0 || posx+1 >= SIZEX as i16 {
             return
@@ -112,7 +112,7 @@ fn check_block_free(state: &[[i8; SIZEX]; SIZEY], checkx: i16, checky: i16) -> b
     if checkx >= SIZEX as i16 || checkx < 1 || checky >= SIZEY as i16 || checky < 1 {
         return false
     }
-    println!("Checking {:?},{:?}: {:?}", checkx, checky,state[checky as usize][checkx as usize]);
+    //println!("Checking {:?},{:?}: {:?}", checkx, checky,state[checky as usize][checkx as usize]);
     if state[checky as usize][checkx as usize] != 0 {
         return false
     }
@@ -143,7 +143,7 @@ fn check_newdir_free(state: &[[i8; SIZEX]; SIZEY], posx: i16, posy: i16, directi
 fn change_direction(state: &[[i8; SIZEX]; SIZEY], posx: i16, posy: i16, direction: &Direction) -> Direction {    
     let ret = change_direction_inner(state, posx, posy, direction);
     if direction != &ret {
-        println!(" from {:?} to {:?}", direction, ret);
+        //println!(" from {:?} to {:?}", direction, ret);
     }
     return ret
 }

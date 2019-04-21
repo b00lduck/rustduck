@@ -16,11 +16,11 @@ pub fn move_event(window :&mut Window, scene_node: &mut Node) {
                 WindowEvent::Key(button, Action::Press, _) => {
                     match button {
                         Key::W => {
-                            scene_node.move_one_step(0.1);
-                            //event.inhibited = true;
+                            scene_node.inc_speed(0.01);
                         }
                         Key::S => {
-                            scene_node.move_z(-0.1)}
+                            scene_node.inc_speed(-0.01);
+                        }
                         Key::A => {
                             scene_node.inc_z_angle(0.2);
                             //event.inhibited = true;
