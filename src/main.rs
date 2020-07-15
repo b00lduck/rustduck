@@ -62,7 +62,7 @@ fn main() {
 }
 
 fn move_step(time_gone:u128,  node:&mut target::Node) {
-    let step = (time_gone as f32 /1000000.0);
+    let step = time_gone as f32 /1000000.0;
         //println!("Time gone: {} | step: {}", time_gone, step);
         node.pulse(step*1.0);
         node.move_one_step();

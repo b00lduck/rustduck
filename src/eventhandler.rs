@@ -11,7 +11,7 @@ pub fn move_event(window :&mut Window, scene_node: &mut Node) {
 //    let rotxneg = UnitQuaternion::from_axis_angle(&Vector3::x_axis(), -0.014);
 
 
-        for mut event in window.events().iter() {
+        for event in window.events().iter() {
             match event.value {
                 WindowEvent::Key(button, Action::Press, _) => {
                     match button {

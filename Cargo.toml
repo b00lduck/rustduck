@@ -3,6 +3,6 @@ name    = "b00lduck"
 version = "0.0.1"
 
 [dependencies]
-kiss3d = "0.19"
+kiss3d = "0.24.1"
 nalgebra = "0.18.0"
 rand = "0.6.5"
