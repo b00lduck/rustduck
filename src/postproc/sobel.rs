@@ -114,10 +114,10 @@ impl PostProcessingEffect for MySobel {
 
         self.gl_fbo_texture.upload(&0);
 
-        verify!(ctxt.active_texture(Context::TEXTURE1));
-        verify!(ctxt.bind_texture(Context::TEXTURE_2D, target.depth_id()));
+        //verify!(ctxt.active_texture(Context::TEXTURE1));
+        //verify!(ctxt.bind_texture(Context::TEXTURE_2D, target.depth_id()));
 
-        self.gl_fbo_depth.upload(&1);
+        //self.gl_fbo_depth.upload(&1);
 
         self.gl_v_coord.bind(&mut self.gl_fbo_vertices);
 

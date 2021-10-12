@@ -39,7 +39,7 @@ impl Map {
 
         
         let mut rng = rand::thread_rng();
-        let q = rng.gen_range(0, 40);
+        let q = rng.gen_range(0..40);
 
         match q {
             1 => {
@@ -153,7 +153,7 @@ fn change_direction(state: &[[i8; SIZEX]; SIZEY], posx: i16, posy: i16, directio
 fn change_direction_inner(state: &[[i8; SIZEX]; SIZEY], posx: i16, posy: i16, direction: &Direction) -> Direction {
 
     let mut rng = rand::thread_rng();
-    let n = rng.gen_range(0, 10);
+    let n = rng.gen_range(0..10);
 
     if n == 0 || !check_newdir_free(state, posx, posy, direction) {
         let q = get_possible_direction(state, posx, posy, direction);
